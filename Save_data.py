@@ -2,7 +2,7 @@ import serial
 import time 
 import csv
 
-ser = serial.Serial('COM5')
+ser = serial.Serial('COM3')
 ser.flushInput()
 
 while True:
