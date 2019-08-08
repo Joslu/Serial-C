@@ -6,7 +6,7 @@ matplotlib.use("tkAgg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ser = serial.Serial('COM3')
+ser = serial.Serial('COM5',115200)
 ser.flushInput()
 
 plot_window = 20
@@ -20,20 +20,17 @@ while True:
     try:
         ser_bytes = ser.readline()
         try:
-            decoded_bytes = float(ser_bytes[0:len(ser_bytes)-2].decode("utf-8"))
-            print(decoded_bytes)
+             decoded_bytes = float(ser_bytes[0:len(ser_bytes)-2].decode("utf-8"))
+             print(decoded_bytes)
+            
+             
         except:
-            continue
-        with open("test_data.csv","a") as f:
-            writer = csv.writer(f,delimiter=",")
-            writer.writerow([time.time(),decoded_bytes])
-        y_var = np.append(y_var,decoded_bytes)
-        y_var = y_var[1:plot_window+1]
-        line.set_ydata(y_var)
+             continue
+       
         ax.relim()
         ax.autoscale_view()
         fig.canvas.draw()
         fig.canvas.flush_events()
-    except KeyboardInterrupt:
+    except:
         print("Keyboard Interrupt")
         break
